@@ -1,6 +1,6 @@
 module Qlive
   @qlive_config = {
-    :base_path => '/dev/null/must/override/usually/to/rails/spec/qunits', # required
+    :base_path => nil, # required. qlive-rails sets this to "#{Rails.root}/spec/qunits"
     :url_prefix => '/qlive/sources',
     :magic_param => 'qlive',
     :js_support_relpath => '/qunit_support',  # gets loaded before all of the qunit js tests
