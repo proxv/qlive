@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Qlive::VERSION
   s.authors     = ["ProxV"]
   s.email       = ["support@proxv.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/proxv/qlive/"
   s.summary     = "run qunit tests against actual back-end server with prepared test fixtures"
-  s.description = ""
+  s.description = s.summary
 
   s.rubyforge_project = "qlive"
 
