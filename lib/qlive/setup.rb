@@ -11,4 +11,8 @@ module Qlive
   def self.setup
     @qlive_config
   end
+
+  def self.logger
+    self.setup[:logger]
+  end
 end
