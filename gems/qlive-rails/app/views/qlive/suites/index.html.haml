@@ -1,0 +1,27 @@
+%h1#qunit-header
+  %strong Qlive-Rails
+%h2.qunit-pass#qunit-banner
+  -# leave banner empty (its a thin green strip, dunno why they used an h2)
+#qunit-testrunner-toolbar
+  = "Found #{pluralize(@suites.length, 'qlive suite')} in #{Qlive.setup[:base_path].sub(Rails.root.to_s + '/', '')} directory tree."
+%h2#qunit-userAgent
+  Pages registered to run qunit qlive suites:
+
+%ol#qunit-tests
+  - if @suites.length > 0
+    - @suites.each do |suite|
+      - hrefs = hrefs_for_suite(suite)
+      - has_links = hrefs.length > 0
+      %li{ :class => has_links ? 'pass' : 'fail' }
+        %strong.module-name= "Suite '#{suite.name}' has #{pluralize(hrefs.length, 'test page')}."
+        %ol
+          - if has_links
+            - hrefs.each do |href|
+              %li.pass
+                %a.test-message.test-page-link{ :href => href}= href
+          - else
+            %li
+              .test-message This suite is not declaring any links to pages in your app. <i>Set them with suite#pages_to_test()</i>
+  - else
+    %li.fail
+      %strong No Qlive Suites Found
