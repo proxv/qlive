@@ -39,7 +39,7 @@ describe Qlive::Rack do
   def html_page
     <<-END.gsub(/^\s+/, '')
       <html><head>
-      <title>Why Jasmine Is Annoying</title>
+      <title>Why Fixturing Is Annoying</title>
       <script src='/app-ui.js'></script>
       </head>
       <body class="webapp">

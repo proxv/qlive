@@ -4,17 +4,7 @@ require 'qlive/suite'
 module Qlive
   module Registry
 
-    unless String.public_method_defined?(:underscore)
-      String.class_eval do
-        def underscore
-          self.gsub(/(.)([A-Z])/,'\1_\2').downcase
-        end
-      end
-    end
-
-
     $qlive_all_suites ||= {}
-    #@all_suites ||= {} # use module instance variable
 
     def self.suites
       $qlive_all_suites
@@ -56,16 +46,17 @@ module Qlive
       meta
     end
 
+    private
 
     def self.extract_suite_name_from_path(path)
-      res = path.split('/')[-1]
-      res = res.split('.')[0]
-      res = res.downcase.sub(/_qlive$/, '')
-      res
+      res = path.sub(Qlive.setup[:base_path], '').sub(/^\//, '')
+      res.split('/')[0..-2].join('/')
     end
 
     def self.extract_suite_name_from_class(klass)
-      klass.name.underscore.sub(/_qlive$/, '')
+      parts = klass.name.split('::')
+      parts = parts.map { |part| part.gsub(/(.)([A-Z])/,'\1_\2').downcase }
+      parts.join('/').sub(/_qlive$/, '')
     end
 
   end
