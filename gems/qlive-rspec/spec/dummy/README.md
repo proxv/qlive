@@ -7,7 +7,7 @@ https://github.com/mulderp/Backbone-on-Rails-todoDemo
 
 ## Run dummy app qlive suites in browser
 ```
-cd qlive-rspec/spec/dummy
+cd qlive/gems/qlive-rspec/spec/dummy
 rails s
 http://localhost/qlive
 ```
