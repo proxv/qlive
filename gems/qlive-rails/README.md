@@ -3,22 +3,6 @@
 Qlive-Rails is a Ruby on Rails engine for running qunit javascript tests using server-side factories and user login.
 
 
-Using the [qlive](https://github.com/proxv/qlive) gem, it provides hooks for setting server state
-before the request is processed by your app, so you can do things like popuplate the page's content with
-your favorite fixtures library (like factory_girl) and log in a user.
-Qlive inserts the qunit framework and all of your test sources into the page's response.
-
-It is mainly intended to be used for testing javascript-heavy, single-page web applications
-(like those built using backbone, angularjs, emberjs, etc.)
-
-
-## Benefits:
-
-* Precisely set fixture content and user login state for your qunit tests
-* Run the same tests both in a browser or headlessly, alongside your normal integration test suite. (with the [qlive-rspec](https://github.com/proxv/qlive-rspec) gem)
-* A dashboard page to link to all of your qlive test suites
-
-
 ## Installation
 
 * Add qlive-rails to your Gemfile:
