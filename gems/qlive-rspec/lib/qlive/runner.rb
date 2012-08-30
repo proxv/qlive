@@ -16,9 +16,9 @@ module Qlive
 
         # todo: support suite selection by allowing directory and path names, not just suite names. (both absolute and relative to base_path)
         desired_suites_by_name = args[:suites] || Qlive::Registry.find_suites.keys
-        describe "qlive" do
+        describe "qlive", :type => :request do
           before(:all) do
-            Qlive.setup[:before_suites].call if Qlive.setup[:before_suites]
+            Qlive.setup[:before_suites].call(page) if Qlive.setup[:before_suites]
             if Qlive.setup[:start_xvfb] && Capybara.current_driver == :webkit
               @headless = ::Headless.new(Qlive.setup[:headless_config])
               @headless.start
@@ -28,7 +28,7 @@ module Qlive
           desired_suites_by_name.each do |desired_suite|
             suite = resolve_suite(desired_suite)
             raise "Could not find qlive suite for: #{desired_suite}" unless suite
-            describe "suite '#{suite.name}'", :type => :request do
+            describe "suite '#{suite.name}'" do
               extend Qlive::SuitesHelper
 
               def visit_qunit_page(suite_name, href)
@@ -46,7 +46,7 @@ module Qlive
 
 
               before(:each) do
-                args[:before_each].call if args[:before_each]
+                args[:before_each].call(page) if args[:before_each]
                 page.reset!
               end
 
@@ -57,17 +57,17 @@ module Qlive
               end
 
               after(:each) do
-                args[:after_each].call if args[:after_each]
+                args[:after_each].call(page) if args[:after_each]
               end
             end
           end
 
           after(:all) do
+            Qlive.setup[:after_suites].call(page) if Qlive.setup[:after_suites]
             if @headless
               puts "\nGetting rough with headless webkit_server. In the event of a fatal IO error, use your judgement regarding calling the police."
               @headless.destroy
             end
-            Qlive.setup[:after_suites].call if Qlive.setup[:after_suites]
           end
 
         end
