@@ -18,7 +18,7 @@ module Qlive
         desired_suites_by_name = args[:suites] || Qlive::Registry.find_suites.keys
         describe "qlive", :type => :request do
           before(:all) do
-            Qlive.setup[:before_suites].call(page) if Qlive.setup[:before_suites]
+            Qlive.setup[:before_suites].call if Qlive.setup[:before_suites]
             if Qlive.setup[:start_xvfb] && Capybara.current_driver == :webkit
               @headless = ::Headless.new(Qlive.setup[:headless_config])
               @headless.start
@@ -46,7 +46,7 @@ module Qlive
 
 
               before(:each) do
-                args[:before_each].call(page) if args[:before_each]
+                args[:before_each].call if args[:before_each]
                 page.reset!
               end
 
@@ -57,13 +57,13 @@ module Qlive
               end
 
               after(:each) do
-                args[:after_each].call(page) if args[:after_each]
+                args[:after_each].call(example) if args[:after_each]
               end
             end
           end
 
           after(:all) do
-            Qlive.setup[:after_suites].call(page) if Qlive.setup[:after_suites]
+            Qlive.setup[:after_suites].call if Qlive.setup[:after_suites]
             if @headless
               puts "\nGetting rough with headless webkit_server. In the event of a fatal IO error, use your judgement regarding calling the police."
               @headless.destroy
