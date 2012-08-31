@@ -75,36 +75,72 @@ You can use qlive-rspec to run cross-browser tests using Sauce Labs.
 * install java sdk
 * add gem 'sauce' to Gemfile in :test group
 
-### sauce rspec
+### Sauce Labs Integration
 
 * Create a spec outside of the normal spec directory. Eg:
 
     sauce/sauce_spec.rb
-    
+
 * It might look like:
-    
+
 ```ruby
-require "spec_helper.rb"
+require_relative '../spec/spec_helper.rb'
 require 'sauce'
 require 'sauce/capybara'
-
-include Qlive::Runner
-
-Capybara.default_driver = :sauce
 
 Sauce.config do |c|
   c[:start_tunnel] = true
 end
 
+Capybara.default_driver = :sauce
+
+all_tests_passed = nil
+Qlive.setup[:before_suites] = lambda {
+  Capybara.current_driver = :sauce
+  all_tests_passed = true
+}
+
+Qlive.setup[:after_suites] = lambda {
+  driver = Capybara.current_session.driver
+  session_id = driver.browser.session_id
+  driver.browser.quit
+  driver.instance_variable_set(:@browser, nil)
+
+  job = Sauce::Job.new('id' => session_id)
+  job.passed = all_tests_passed
+  job.save
+}
+
+def job_name(config=nil)
+  config ||= Sauce::Config.new.opts
+  "Qlive tests in #{config[:browser]}#{config[:browser_version] || ''} on #{config[:os]} at #{Time.now.to_s}"
+end
+
+def setup_session(config)
+  config.each do |key, value|
+    value = value || ''
+    ENV["SAUCE_#{key.to_s.upcase}"] = value.to_s
+  end
+
+  ENV['SAUCE_JOB_NAME'] ||= job_name(config)
+end
+
+def record_result(example)
+  all_tests_passed = false if example.exception
+end
+
 [[ 'firefox', nil, 'Windows 2003' ], [ 'iexplore', 8, 'Windows 2003' ], [ 'iexplore', 9, 'Windows 2008' ]].each do |browser, version, os|
-  version ||= ''
-  describe "sauce qunits browser '#{browser}#{version.kind_of?(Fixnum) ? version.to_s : ''}' #{os}" do
+  config = {
+    :browser => browser,
+    :browser_version => version,
+    :os => os
+  }
+  describe job_name(config) do
     run_qlive(:before_each => lambda {
-      puts "Switching sauce to use browser #{browser}, version #{version}, os #{os}"
-      ENV['SAUCE_BROWSER'] = browser
-      ENV['SAUCE_BROWSER_VERSION'] = version.to_s
-      ENV['SAUCE_JOB_NAME'] = "My Qlive Tests in #{browser}#{version} on #{os} at #{Time.now.to_s}"
-      ENV['SAUCE_OS'] = os
+      setup_session(config)
+      puts "Running #{job_name}"
+    }, :after_each => lambda { |example|
+      record_result(example)
     })
   end
 end
@@ -126,3 +162,5 @@ Qlive.setup[:after_suites] lambda { my_teardown_code }
 * Optionally change per-page timeout in seconds with: ``Qlive.setup[:capybara_wait_time] = 30``
 
 * Optionally pass in ``:before_each`` and ``:after_each`` proc/lambda in ``run_qlive`` (called in qunits_spec.rb)
+  :after_each gets passed the current rspec [example](http://rdoc.info/github/rspec/rspec-core/RSpec/Core/ExampleGroup#example-instance_method) as its one and only parameter.
+
