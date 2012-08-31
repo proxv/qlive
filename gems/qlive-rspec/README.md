@@ -94,10 +94,10 @@ end
 
 Capybara.default_driver = :sauce
 
-all_tests_passed = nil
+$all_tests_passed = nil
 Qlive.setup[:before_suites] = lambda {
   Capybara.current_driver = :sauce
-  all_tests_passed = true
+  $all_tests_passed = true
 }
 
 Qlive.setup[:after_suites] = lambda {
@@ -107,7 +107,7 @@ Qlive.setup[:after_suites] = lambda {
   driver.instance_variable_set(:@browser, nil)
 
   job = Sauce::Job.new('id' => session_id)
-  job.passed = all_tests_passed
+  job.passed = $all_tests_passed
   job.save
 }
 
@@ -126,7 +126,7 @@ def setup_session(config)
 end
 
 def record_result(example)
-  all_tests_passed = false if example.exception
+  $all_tests_passed = false if example.exception
 end
 
 [[ 'firefox', nil, 'Windows 2003' ], [ 'iexplore', 8, 'Windows 2003' ], [ 'iexplore', 9, 'Windows 2008' ]].each do |browser, version, os|
