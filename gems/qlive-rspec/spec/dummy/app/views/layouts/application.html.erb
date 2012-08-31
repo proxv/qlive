@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BackboneOnRailsTodo</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="title">
+  <h1>TodoList Dummy App</h1>
+  <h3>I didn't create this app. It was just the first <a href="https://github.com/mulderp/Backbone-on-Rails-todoDemo">rails/backbone demo</a> that I found.</h3>
+</div>
+
+  <%= yield %>
+
+</body>
+</html>

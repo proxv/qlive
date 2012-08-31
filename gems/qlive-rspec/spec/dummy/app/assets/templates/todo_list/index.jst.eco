@@ -1,0 +1,11 @@
+
+<form id="new-todo">                                                                                                                                                    
+  <input type="text" name="name" id="new-todo-content">
+  <input type="submit" value="Add">
+</form>
+
+<ul>
+  <% for todo in @todo_list.models: %>
+    <li><%= todo.get('content') %></li>
+  <% end %>
+</ul>

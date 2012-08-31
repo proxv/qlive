@@ -1,0 +1,31 @@
+source 'https://rubygems.org'
+
+gem 'rails', '~> 3.2.3'
+gem 'sqlite3'
+gem 'haml-rails'
+
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+gem 'backbone-on-rails'
+
+group :development do
+end
+
+group :test, :development do
+  gem 'factory_girl_rails', '3.5.0'
+  gem 'qlive-rails', :path => "#{ENV['PROXV_REPOS']}/qlive/gems/qlive-rails", :require => 'qlive/engine' # https://github.com/proxv/qlive # tmp - del
+  #gem 'qlive-rails', :require => 'qlive/engine' # https://github.com/proxv/qlive # tmp - restore
+end
+
+group :test do
+  gem 'rspec-rails', '~> 2.8.1'
+  gem 'capybara-webkit', '0.10.0'
+  gem 'headless', '~> 0.2'
+  gem 'qlive', :path => "#{ENV['PROXV_REPOS']}/qlive/gems/qlive" # tmp - del
+  gem 'qlive-rspec', :path => File.expand_path('../../..', __FILE__)
+end

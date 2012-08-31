@@ -1,0 +1,19 @@
+/*
+ *= require_self
+ */
+
+#qunit-tests li.fail li {
+  list-style: none;
+}
+
+#qunit-tests ol li a.test-page-link {
+  text-decoration: underline;
+  color: #333;
+}
+
+#qunit-tests li li.pass {
+  border-color: #AD46E7;
+}
+#qunit-banner.qunit-pass  {
+  background-color: #AD46E7;
+}
