@@ -18,6 +18,8 @@ module Qlive
 
         if Rails.configuration.serve_static_assets
           app.middleware.insert_after ::ActionDispatch::Static, ::ActionDispatch::Static, "#{root}/public"
+        else
+          app.middleware.insert_before(::Rack::Lock, ::ActionDispatch::Static, "#{root}/public")
         end
       end
 
