@@ -29,6 +29,7 @@ note: See [capybara-webkit](https://github.com/thoughtbot/capybara-webkit) and [
     end
 
     group :test do
+      gem 'capybara-webkit', '~> 0.10'
       gem 'qlive-rspec'
     end
     ```
