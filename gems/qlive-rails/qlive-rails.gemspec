@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "rails", "~> 3.2"
   gem.add_dependency 'haml-rails'
   gem.add_dependency 'sass-rails'
-  gem.add_development_dependency "rspec-rails", "~> 2.8.0"
-  gem.add_development_dependency "factory_girl_rails", "~> 3.5.0"
+  gem.add_development_dependency "rspec-rails", "~> 2.8"
+  gem.add_development_dependency "factory_girl_rails", "~> 3.5"
 
 end

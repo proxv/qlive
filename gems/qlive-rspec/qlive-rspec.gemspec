@@ -16,9 +16,9 @@ Gem::Specification.new do |gem|
   gem.version       = QliveRspec::VERSION
 
   gem.add_dependency "qlive-rails", "~> 0.2.0"
-  gem.add_dependency "capybara-webkit", "0.10.0"
-  gem.add_dependency "rspec-rails", "~> 2.8.1"
+  gem.add_dependency "capybara-webkit", "0.10"
+  gem.add_dependency "rspec-rails", "~> 2.8"
   gem.add_dependency "headless", "~> 0.3"
-  gem.add_development_dependency "rspec-rails", "~> 2.8.0"
-  gem.add_development_dependency "factory_girl_rails", "~> 3.5.0"
+  gem.add_development_dependency "rspec-rails", "~> 2.8"
+  gem.add_development_dependency "factory_girl_rails", "~> 3.5"
 end
