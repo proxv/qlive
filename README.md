@@ -1,41 +1,28 @@
 # Qlive
 
-Qlive is a full-stack integration testing tool for running QUnit JavaScript tests against a live Rack server.
-It is mainly intended to be used for testing JavaScript-heavy, single-page web applications
-(like those built using Backbone, AngularJS, Ember.js, etc.).
+This core Qlive gem is rack middleware that:
+
+* provides hooks for setting server state before the request is processed by your app
+* inserts the qunit framework and your test sources and helpers into the page's response.
 
 
-Qlive's primary purpose is to enable testing with deterministic fixturing. It lets you precisely define a page's content
-and user login state server-side, so you can avoid the problem of tests that sometimes pass and sometimes fail.
+If you are using Ruby on Rails, you should not use this gem directly. Instead, use 
+[qlive-rails](https://github.com/proxv/qlive-rails) or [qlive-rspec](https://github.com/proxv/qlive-rspec).
 
 
-## Benefits:
+## Configuration 
 
-* Precisely set fixture content and user login state for your QUnit tests using your favorite fixtures library (like factory\_girl).
-* Run the same tests both in a browser or headlessly, alongside your normal integration test suite (with the qlive-rspec gem).
-* A dashboard page to link to all of your qlive test suites (with the qlive-rails gem).
+* Configure base path, the top of the directory tree that contains your qlive suites. (See suites section below)
+    <pre>Qlive.setup[:base_path] = /absolute/path/to/qunit/tests/tree</pre>
+* Configure url prefix for serving your test sources in this tree.
+    * The default is /qlive/sources.
+    * So a request to /qlive/sources/my_suite/test-stuff.js would need to resolve to #{base_path}/my_suite/test-stuff.js
+* Mount Qlive::Rack late enough for it to access the database or whatever else the suite needs for preparing page state
 
-
-## Installation
-
-### Ruby on Rails
-
-If you are using Ruby on Rails, you should use one of these gems:
-
-* [qlive-rails](https://github.com/proxv/qlive/tree/master/gems/qlive-rails) Configures qlive for use with Ruby On Rails and provides an index page linking to your qlive test suites.
-* [qlive-rspec](https://github.com/proxv/qlive/tree/master/gems/qlive-rspec) Run your QUnit tests headlessly as an Rspec example. (Builds on qlive-rails.)
-
-You can install them with <code>gem install qlive-rspec</code> or by adding the appropriate Gemfile entry.
-
-
-### Non-Rails
-
-To test Sinatra or other Rack applications, use the core qlive gem direclty:
-
-* [qlive middleware](https://github.com/proxv/qlive/tree/master/gems/qlive) Rack middleware for inserting the QUnit-related scripts and for triggering fixturing hooks.
+todo: improve/complete non-rails instructions should anyone want to use it.
 
 
 ## Usage
 
-See the [Qlive suites wiki page](https://github.com/proxv/qlive/wiki/qlive-suites).
+See [suites wiki page](https://github.com/proxv/qlive/wiki/qlive-suites).
 

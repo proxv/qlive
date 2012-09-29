@@ -5,8 +5,8 @@ module Qlive
     def prepare_assets
       before_body_close.concat(
         qunit_html_structure |
-        qunit_support_assets |
         qunit_framework |
+        qunit_support_assets |
         qunit_disable_autostart |
         qunit_javascript_test_sources |
         qunit_finalize
