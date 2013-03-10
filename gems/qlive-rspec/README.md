@@ -5,23 +5,22 @@ This builds on the [qlive-rails](https://github.com/proxv/qlive-rails) gem. If y
 this gem will let you run your qlive tests in both a browser and headlessly as an rspec example/test.
 
 
-Qlive-rspec has relatively heavy dependencies: virtual X11 frame buffer, headless webkit, capybara, and rspec.
-If this doesn't work for you, it should be possible to incorporate your qlive tests into other automated testing
-or continuous integration enviornments (eg, with a selenium-related library.)
+## Installation
 
 
+### PhantomJS and Poltergeist
 
-## Headless Webkit
-
-
-
-* Install webkit-qt and xvfb on your system. Eg:
-<pre>sudo aptitude install libqt4-dev xvfb</pre>
-
-note: See [capybara-webkit](https://github.com/thoughtbot/capybara-webkit) and [headless](https://github.com/leonid-shevtsov/headless) gems for more detailed instructions.
+Qlive-rspec depends on the [Poltergeist gem](https://github.com/jonleighton/poltergeist),
+which uses [PhantomJS](http://phantomjs.org/) as its headless webkit browser.
 
 
-* Add qlive-rails and qlive-rspec to your Gemfile as follows:
+You will need to install PhantomJS. Up-to-date binaries are usually available
+for [download](http://phantomjs.org/download.html) so it is a pretty easy install.
+
+
+### Gemfile
+
+Add poltergeist, qlive-rails, and qlive-rspec to your Gemfile as follows:
 
     ```ruby
     group :test, :development do
@@ -29,12 +28,16 @@ note: See [capybara-webkit](https://github.com/thoughtbot/capybara-webkit) and [
     end
 
     group :test do
-      gem 'capybara-webkit', '~> 0.10'
-      gem 'qlive-rspec'
+      gem 'poltergeist', '~> 1.1'
+      gem 'qlive-rspec', '~> 0.4.0'
     end
     ```
 
-* As in qlive-rails, mount the engine in routes.rb:
+
+### Routes
+
+Mount the engine in routes.rb:
+
 
     ```ruby
     if Rails.env != 'production'
@@ -53,7 +56,7 @@ create ``spec/qunits/qunits_spec.rb``:
   require "spec_helper.rb"  
   include Qlive::Runner
   
-  Capybara.current_driver = :webkit
+  Capybara.current_driver = :poltergeist
 
   describe "qunits" do
     run_qlive
@@ -61,8 +64,12 @@ create ``spec/qunits/qunits_spec.rb``:
 ```
 
 
-* It will now run as a normal rspec example:
-<pre>rspec spec/qunits</pre>
+* Your qunit tests will now run as a normal rspec example:
+``rspec spec/qunits``
+
+
+* Tip: you can run just specific qlive suites using the rspec --example option and the qlive suite name. Eg: Running qunits for just the suite Posts::AsUserQlive could be run with:
+``rspec spec/qunits --example 'posts/as_user'``
 
 
 ## Sauce
@@ -155,10 +162,6 @@ end
 Qlive.setup[:before_suites] lambda { my_setup_code }
 Qlive.setup[:after_suites] lambda { my_teardown_code }
 </pre>
-
-* Optionally set xvfb/headless gem to a custom configuration hash with: ``Qlive.setup[:headless_config] = my_settings_hash``
-
-* Optionally disable xvfb with ``Qlive.setup[:start_xvfb] = false`` if you plan on configuring it externally
 
 * Optionally change per-page timeout in seconds with: ``Qlive.setup[:capybara_wait_time] = 30``
 

@@ -1,7 +1,7 @@
 module Qlive
   module Matchers
     def self.add_matchers
-      ::RSpec::Matchers.define :pass_qunit_tests do |failure_text|
+      ::RSpec::Matchers.define :pass_qunit_tests do |suite, failure_text|
         match do |page_actual|
           url = page_actual.current_url
           passed = page_actual.find('#qunit-testresult .passed').text.to_i rescue 0
