@@ -13,7 +13,7 @@
       - hrefs = hrefs_for_suite(suite)
       - has_links = hrefs.length > 0
       %li{ :class => has_links ? 'pass' : 'fail' }
-        %strong.module-name= "Suite '#{suite.name}' has #{pluralize(hrefs.length, 'test page')}."
+        %strong.module-name= "Suite '#{suite.suite_name}' has #{pluralize(hrefs.length, 'test page')}."
         %ol
           - if has_links
             - hrefs.each do |href|

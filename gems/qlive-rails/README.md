@@ -2,6 +2,9 @@
 
 Qlive-Rails is a Ruby on Rails engine for running qunit javascript tests using server-side factories and user login.
 
+To use qlive-rails and also have the ability to run your qlive tests headlessly, skip this installation page
+and visit [qlive-rspec](https://github.com/proxv/qlive/tree/master/gems/qlive-rspec)
+
 
 ## Installation
 
@@ -23,8 +26,6 @@ Qlive-Rails is a Ruby on Rails engine for running qunit javascript tests using s
     ```
 
 
-
-For running qlive headlessly using rspec, take a look at [qlive-rspec](https://github.com/proxv/qlive-rspec).
 
 
 ## Usage
