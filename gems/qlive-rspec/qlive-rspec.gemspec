@@ -15,9 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = QliveRspec::VERSION
 
-  gem.add_dependency "qlive-rails", "~> 0.2.0"
-  gem.add_dependency "rspec-rails", "~> 2.8"
-  gem.add_dependency "headless", "~> 0.3"
-  gem.add_development_dependency "rspec-rails", "~> 2.8"
+  gem.add_dependency "qlive-rails", "~> 0.4.0"
+  gem.add_dependency "rspec-rails", "~> 2.11"
+  gem.add_dependency "poltergeist", "~> 1.1"
+  gem.add_development_dependency "rspec-rails", "~> 2.11"
   gem.add_development_dependency "factory_girl_rails", "~> 3.5"
 end

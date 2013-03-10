@@ -10,13 +10,13 @@ module Qlive
     InsertionPoints ||= [ 'after_head_open', 'before_head_close', 'after_body_open', 'before_body_close']
 
     def self.included(base)
-      meta = Registry.register_class(base)
+      registration = Registry.register_class(base)
       base.class_eval do
         class << self
-          attr_reader :suite_meta_data
+          attr_reader :suite_registration
         end
       end
-      base.instance_variable_set(:@suite_meta_data, meta)
+      base.instance_variable_set(:@suite_registration, registration)
 
       InsertionPoints.each do |place|
         attr_accessor place
@@ -42,25 +42,26 @@ module Qlive
       prepare_assets
     end
 
-
-    def name
-      self.meta_data[:name]
+    def registration
+      self.class.suite_registration
     end
-
-    def meta_data
-      self.class.suite_meta_data
-    end
-
 
     def suite_name
-      self.name
+      self.registration.name
     end
 
+    def before_each_suite(rack_request)
+      # override in suite
+    end
 
-    protected
+    def before_suite_response(status, headers, body)
+      # override in suite
+    end
 
+    # DEPRECATED
     def before_each_request(rack_request)
-      # override to create server-side fixtures here for the qlive request
+      Qlive.logger.warn("Qlive suite '#{suite_name}' uses deprecated 'before_each_request' method. Rename it to 'before_each_suite'.")
+      before_each_suite(rack_request)
     end
 
   end

@@ -4,7 +4,7 @@ window.qlog = function(msg, obj) {
     domConsole = $('<ol id="qlog">Test Log:</ol>').appendTo($('.qlive-structure'));
   }
   if (console && console.log) {
-    console.log(msg, obj);
+    console.log(msg, obj || '');
   }
   var li = $('<li>' + msg + '</li>');
   if (obj) {

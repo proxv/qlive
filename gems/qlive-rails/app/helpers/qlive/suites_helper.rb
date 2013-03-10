@@ -23,7 +23,7 @@ module Qlive
 
 
     def append_suite_command(suite, href)
-      param = "qlive=#{suite.name}"
+      param = "qlive=#{suite.suite_name}"
       # todo: use url/uri library to make this cleaner
       pos = href.index('?')
       if pos

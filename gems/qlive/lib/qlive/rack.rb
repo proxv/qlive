@@ -22,13 +22,14 @@ module Qlive
                           :request => request,
                           :session => env["rack.session"]
                         })
-          suite.before_each_request(request)
+          suite.before_each_suite(request)
         end
       end
 
       status, headers, body = @app.call(env)
 
       if suite
+        suite.before_suite_response(status, headers, body)
         inject_html(:after_open, :head, suite.html_after_head_open, body, headers)
         inject_html(:before_close, :head, suite.html_before_head_close, body, headers)
         inject_html(:after_open, :body, suite.html_after_body_open, body, headers)

@@ -1,4 +1,4 @@
-var DEFAULT_MAX_DURATION = 12000;
+var DEFAULT_MAX_DURATION = 8000;
 
 window.waitFor = function(title, checkFn, opts) {
   var qunitCurrent = QUnit.config.current; // something is clearing this. Not yet sure why.
@@ -43,4 +43,5 @@ function failQunit(msg) {
   ok(false, msg);
   start();
   window.qunitComplete = true;
+  window.endQlive && window.endQlive();
 }

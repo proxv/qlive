@@ -1,20 +1,21 @@
 require File.expand_path("../../spec_helper.rb", __FILE__)
 
-describe Qlive::Rack do
-  class HappyGoLuckyQlive
-    include Qlive::Suite
+Registry = Qlive::Registry
 
-    def before_each_request(rack_request)
-      rack_request.session[:logged_in_as] = 1255
-    end
-  end
+describe Qlive::Rack do
 
   before(:each) do
-    suite = HappyGoLuckyQlive.new
-    Qlive::Registry.stub!(:build_suite).and_return suite
+    Registry.find_suites
+    suite = FancyWorkflow::AsUser.new
+    class << suite
+      def before_each_suite(rack_request)
+        rack_request.session[:logged_in_as] = 1255
+      end
+    end
+    Registry.stub!(:build_suite).with('fancy_workflow/as_user').and_return(suite)
   end
 
-  let(:environment) { Rack::MockRequest.env_for('/webapp/tinfoiled?qlive=happy_go_lucky#frontpage') }
+  let(:environment) { Rack::MockRequest.env_for('/webapp/tinfoiled?qlive=fancy_workflow/as_user#frontpage') }
   let(:application) { lambda{|env| [200, {'Content-Type' => 'text/html'}, [ html_page ]]} }
   let(:middleware) do
     Qlive::Rack.new(application, { :base_path => fixtures_base_path })
@@ -27,7 +28,7 @@ describe Qlive::Rack do
 
   it "should allow suite to modify session data" do
     middleware.call(environment)
-    environment['rack.session'].should == {:logged_in_as => 1255} # see before_each_request
+    environment['rack.session'].should == {:logged_in_as => 1255} # see before_each_suite
   end
 
   #todo: describe "magic param" do
