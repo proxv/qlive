@@ -22,16 +22,16 @@ for [download](http://phantomjs.org/download.html) so it is a pretty easy instal
 
 Add poltergeist, qlive-rails, and qlive-rspec to your Gemfile as follows:
 
-    ```ruby
-    group :test, :development do
-      gem 'qlive-rails', :require => 'qlive/engine'
-    end
+```ruby
+  group :test, :development do
+    gem 'qlive-rails', :require => 'qlive/engine'
+  end
 
-    group :test do
-      gem 'poltergeist', '~> 1.1'
-      gem 'qlive-rspec', '~> 0.4.0'
-    end
-    ```
+  group :test do
+    gem 'poltergeist', '~> 1.1'
+    gem 'qlive-rspec', '~> 0.4.0'
+  end
+```
 
 
 ### Routes
@@ -39,11 +39,11 @@ Add poltergeist, qlive-rails, and qlive-rspec to your Gemfile as follows:
 Mount the engine in routes.rb:
 
 
-    ```ruby
+```ruby
     if Rails.env != 'production'
       mount Qlive::Engine => '/qlive'
     end
-    ```
+```
 
 
 
