@@ -12,7 +12,15 @@ module Qlive
     @qlive_config
   end
 
+  class DefaultLogger
+    %w( debug info warn error).each do |level|
+      define_method(level) do |raw|
+        $stdout.write("#{level.upcase}: #{raw.to_s}\n")
+      end
+    end
+  end
+
   def self.logger
-    self.setup[:logger]
+    self.setup[:logger] ||= DefaultLogger.new
   end
 end

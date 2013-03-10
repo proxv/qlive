@@ -14,6 +14,7 @@ http://localhost/qlive
 
 ## Run dummy app qlive suites headlessly
 ```
+cd qlive/gems/qlive-rspec
 rspec spec/qunits
 ```
 

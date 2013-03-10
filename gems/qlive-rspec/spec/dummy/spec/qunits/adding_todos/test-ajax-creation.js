@@ -2,7 +2,7 @@ $(document).ready(function() {
   module("test-ajax-creation.js");
 
   asyncTest("create new todo item", 2, function() {
-    waitFor('items load', function() {
+    waitFor('items to load', function() {
       return $('#todo-list li').length > 3;
     }).then(function() {
         var startCount = $('#todo-list li').length;
