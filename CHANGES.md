@@ -17,7 +17,7 @@
 ## Upgrading to 0.4: What To Do
 
 
-* Follow the udpated install instructions. (See readme, mainly involves installing phantomjs and updating Gemfile)
+* Follow the udpated install instructions. (See readme, mainly involves installing phantomjs, updating Gemfile, and setting Capybara driver to :poltergeist)
 
 * Rename the ``before_each_request`` method to ``before_each_suite``
 
