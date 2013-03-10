@@ -19,5 +19,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'rack', '~> 1.4'
-  s.add_development_dependency "rspec", '~> 2.8.0'
+  s.add_development_dependency "rspec", '~> 2.11'
 end
