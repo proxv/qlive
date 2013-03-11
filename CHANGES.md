@@ -17,11 +17,11 @@
 ## Upgrading to 0.4: What To Do
 
 
-* Follow the udpated install instructions. (See readme, mainly involves installing phantomjs, updating Gemfile, and setting Capybara driver to :poltergeist)
+* Follow the updated install instructions. (See readme, mainly involves installing phantomjs, updating Gemfile, and setting Capybara driver to :poltergeist)
 
 * Rename the ``before_each_request`` method to ``before_each_suite``
 
-* Optonally rename suites to take advantage of the more flexible directory/naming structure. (Make sure they still end in qlive.rb)
+* Optionally rename suites to take advantage of the more flexible directory/naming structure. (Make sure they still end in qlive.rb)
 
 * If you are manually stopping headless runner from your javascript for some reason (before Qunit completes) you will now need to call ``window.endQlive()`` to do so.
 
