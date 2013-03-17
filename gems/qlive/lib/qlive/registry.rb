@@ -24,17 +24,22 @@ module Qlive
     def self.find_suites
       base_path = Qlive.setup[:base_path]
       Dir.glob("#{base_path}#{base_path.end_with?('/') ? '' : '/'}**/*qlive.rb").sort.flatten.each do |path|
+        path = path.to_s
         name = self.extract_suite_name_from_path(path)
         unless all_by_name[name]
           all_by_name[name] = Registration.new(
               :name => name,
               :path => path)
-          @qlive_current_suite_name = name
-          load(path.to_s)
-          @qlive_current_suite_name = nil
+          reload_suite(name, path)
         end
       end
       all_by_name
+    end
+
+    def self.reload_suite(name, path)
+      @qlive_current_suite_name = name
+      load(path)
+      @qlive_current_suite_name = nil
     end
 
     def self.build_suite(suite_name)
@@ -45,15 +50,21 @@ module Qlive
         registration = Registry.all_by_name[suite_name]
       end
       raise "Qlive Suite not found: #{suite_name}" unless registration
-      load registration.path
-      klass = registration.klass
-      raise "Qlive could not find class for suite: #{suite_name}" unless klass
-      klass.new
+      if File.exists?(registration.path)
+        reload_suite(suite_name, registration.path)
+        klass = registration.klass
+        raise "Qlive could not find class for suite: #{suite_name}" unless klass
+        klass.new
+      else
+        Qlive.logger.info "Qlive suite moved or deleted, ignoring #{registration.path}"
+        Registry.all_by_name.delete(suite_name)
+        $qlive_registrations_by_class.delete(registration.klass) if registration.klass
+        nil
+      end
     end
 
     def self.register_class(klass)
-      registration = $qlive_registrations_by_class[klass]
-      registration ||= Registry.all_by_name[@qlive_current_suite_name]
+      registration = $qlive_registrations_by_class[klass] || Registry.all_by_name[@qlive_current_suite_name]
       if registration
         registration.klass = klass
         $qlive_registrations_by_class[klass] = registration

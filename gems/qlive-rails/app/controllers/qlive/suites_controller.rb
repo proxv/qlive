@@ -7,6 +7,7 @@ module Qlive
       @suites = Qlive::Registry.all_by_name.keys.map do |suite_name|
         Qlive::Registry.build_suite(suite_name)
       end
+      @suites.compact!
     end
 
 

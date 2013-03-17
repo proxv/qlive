@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.files = Dir["{app,config,db,lib,public}/**/*"] + ["Rakefile", "README.md"]
   gem.test_files = Dir["test/**/*"]
 
-  gem.add_dependency "qlive", '~> 0.4.0'
+  gem.add_dependency "qlive", '~> 0.4.1'
   gem.add_dependency "rails", "~> 3.2"
   gem.add_dependency 'haml-rails'
   gem.add_dependency 'sass-rails'
