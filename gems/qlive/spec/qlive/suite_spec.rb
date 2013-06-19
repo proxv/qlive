@@ -29,7 +29,7 @@ describe Qlive::Suite, "qunit source" do
   it "should insert qunit resources and all js files in the same directory as the suite" do
     source_tags = @suite.qunit_javascript_test_sources
     source_tags.length.should == 2
-    source_tags.join("\n").should match(/#{Regexp.escape("/qlive/sources/fancy_workflow/as_user/post-new-recipe.js")}/)
+    source_tags.join("\n").should match(/#{Regexp.escape("/qlive/sources/fancy_workflow/post-new-recipe.js")}/)
   end
 
 end
