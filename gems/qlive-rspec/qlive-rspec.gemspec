@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "qlive-rails", "~> 0.4.0"
   gem.add_dependency "rspec-rails", "~> 2.11"
-  gem.add_dependency "poltergeist", "~> 1.3"
+  gem.add_dependency "poltergeist", "~> 1.1.2"
+
   gem.add_development_dependency "factory_girl_rails", "~> 3.5"
 end
