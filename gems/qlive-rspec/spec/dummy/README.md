@@ -4,12 +4,18 @@
 I randomly grabbed a demo app that uses rails and backbone:
 https://github.com/mulderp/Backbone-on-Rails-todoDemo
 
+## set up gems and db
+```
+cd qlive/gems/qlive-rspec/spec/dummy
+bundle install
+rake db:create db:migrate
+```
 
 ## Run dummy app qlive suites in browser
 ```
 cd qlive/gems/qlive-rspec/spec/dummy
-rails s
-http://localhost/qlive
+rails s -p 3000
+http://localhost:3000/qlive
 ```
 
 ## Run dummy app qlive suites headlessly

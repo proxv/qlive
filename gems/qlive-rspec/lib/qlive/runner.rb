@@ -22,8 +22,8 @@ module Qlive
           desired_suites_by_name.each_with_index do |desired_suite, ndx|
             suite = resolve_suite(desired_suite)
             raise "Could not find qlive suite for: #{desired_suite}" unless suite
-
-            describe "suite ##{ndx + 1} '#{suite.suite_name}'" do
+            tags = (suite.respond_to?(:rspec_tags) ? suite.rspec_tags : {})
+            describe "suite ##{ndx + 1} '#{suite.suite_name}'", tags do
               extend Qlive::SuitesHelper
 
               def visit_qunit_page(suite, href)
