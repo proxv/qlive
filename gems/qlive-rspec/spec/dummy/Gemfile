@@ -22,6 +22,7 @@ group :test, :development do
   gem 'factory_girl_rails', '3.5.0'
   gem 'qlive', :path => "#{qlive_gems_path}/qlive"
   gem 'qlive-rails', :path => "#{qlive_gems_path}/qlive-rails", :require => 'qlive/engine'
+  gem 'qlive-rspec', :path => "#{qlive_gems_path}/qlive-rspec"
 end
 
 group :test do

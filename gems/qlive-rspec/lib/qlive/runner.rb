@@ -31,7 +31,7 @@ module Qlive
                   Qlive.logger.info "Qlive sending capybara to run '#{suite.suite_name}' on #{href}"
                   visit href
                   page.html.should_not be_nil
-                  page.find("#qlive-complete")
+                  page.find('#qlive-complete')
                   failure_text = page.evaluate_script("$('li.fail li.fail').text();")
                   page.should pass_qunit_tests(suite, failure_text)
                 end

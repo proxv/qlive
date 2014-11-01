@@ -24,3 +24,10 @@ cd qlive/gems/qlive-rspec
 rspec spec/qunits
 ```
 
+This broke, it's not using dummy Gemfile. (TODO: require investigate how to require external Gemfile.) 
+
+Workaround:
+```
+cd qlive/gems/qlive-rspec/spec/dummy
+bundle exec rspec ../../spec/
+```

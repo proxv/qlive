@@ -3,5 +3,5 @@ require "qlive/runner"
 
 
 module QliveRspec
-  Qlive.setup[:capybara_wait_time] = 30
+  Qlive.setup[:capybara_wait_time] ||= 30
 end

@@ -8,7 +8,6 @@ end
 
 
 RSpec.configure do |config|
-  Qlive.setup[:base_path] = fixtures_base_path
-
+  Qlive.setup[:base_path] ||= fixtures_base_path
 end
 
