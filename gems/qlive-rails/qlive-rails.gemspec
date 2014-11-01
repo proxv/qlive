@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files = Dir["test/**/*"]
 
   gem.add_dependency "qlive", '~> 0.4.1'
-  gem.add_dependency "rails", "~> 3.2"
+  gem.add_dependency "rails", "> 3.2", "< 5"
   gem.add_dependency 'haml-rails'
   gem.add_dependency 'sass-rails'
   gem.add_development_dependency "rspec-rails", "~> 2.11"
